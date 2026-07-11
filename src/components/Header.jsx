@@ -73,14 +73,25 @@ export default function Header() {
             </span>
           </div>
           <p className="text-[14px] m-0" style={{ color: 'var(--grey2)' }}>
-            创意前端开发者 & 独立设计师
+            畅销书作者 & 双一流大学教材导师
           </p>
-          <p className="text-[14px] mt-4 leading-relaxed" style={{ color: 'var(--grey2)' }}>
-            设计才是真正的技能，技术只是工具。
+          <p className="text-[14px] mt-4 mb-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
+            一直致力于研究文案方法论：
           </p>
-          <p className="text-[14px] mt-2 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-            玩转 Figma、React 和 Next.js。痴迷于用 GSAP、Framer Motion 和 Lenis
-            打造丝滑的交互体验。偶尔写点小工具，偶尔接个外包，努力靠手艺养活自己。
+          <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+            通过一篇卖货文案带来30万销售额；
+          </p>
+          <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+            通过文案给一服装公司带来80%加盟客户；
+          </p>
+          <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+            通过一篇软文，让100+自媒体主动转载；
+          </p>
+          <p className="text-[14px] mt-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
+            关注如何更好地教文案：
+          </p>
+          <p className="text-[14px] mt-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+            通过文案训练营，帮众多文案小白成功转型并实现文案变现。
           </p>
         </div>
       </div>
