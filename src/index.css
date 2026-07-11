@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+/* ============================================
+   设计系统 — 从 creativeatishay.in CSS 精确提取
+   中文字体：得意黑(标题) + 霞鹜文楷(正文) + JetBrains Mono(标签)
+   ============================================ */
+
+/* 得意黑 · @font-face（本地 OTF） */
+@font-face {
+  font-family: 'Smiley Sans';
+  src: url('/SmileySans-Oblique.otf') format('opentype');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 霞鹜文楷 · 正文字体 */
+@font-face {
+  font-family: 'LXGW WenKai';
+  src: url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'LXGW WenKai';
+  src: url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Dark theme (Creative mode) */
+  --body-bg: #0e0e12;
+  --body-color: #eaeaea;
+  --grey1: #eaeaea;
+  --grey2: #a0a0a8;
+  --grey3: #787880;
+  --accent: #3b5bff;
+  --accent-hover: #5a9bff;
+  --wash1: #2a2a32;
+  --wash2: #1c1c22;
+  --border: #2a2a32;
+  --border-rule: #2a2a32;
+  --selection-bg: #2a2a3a;
+  --selection-color: #f0f0f0;
+  --focus-color: rgba(255, 255, 255, 0.5);
+  --transparent-border: rgba(255, 255, 255, 0.06);
+  --photo-frame: #2b2b33;
+  --gh-empty: #1e1e26;
+  --toggle-track: #23232c;
+  --toggle-thumb: #3a3a48;
+  --surface-border: rgba(255, 255, 255, 0.12);
+  --surface-border-hover: rgba(255, 255, 255, 0.22);
+
+  /* Light theme (Minimal mode) */
+  &[data-theme="minimal"] {
+    --body-bg: #fafbfc;
+    --body-color: #111111;
+    --grey1: #111111;
+    --grey2: #555555;
+    --grey3: #9ca3af;
+    --wash1: #f2f2f2;
+    --wash2: #e5e7eb;
+    --border: #e5e5e5;
+    --border-rule: #e5e5e5;
+    --selection-bg: rgba(59, 91, 255, 0.12);
+    --selection-color: #111111;
+    --focus-color: rgba(0, 0, 0, 0.5);
+    --transparent-border: rgba(0, 0, 0, 0.06);
+    --photo-frame: #ffffff;
+    --gh-empty: #ebedf0;
+    --toggle-track: #e5e7eb;
+    --toggle-thumb: #ffffff;
+    --surface-border: rgba(0, 0, 0, 0.12);
+    --surface-border-hover: rgba(0, 0, 0, 0.22);
+  }
+}
+
+/* Base styles */
+body {
+  background-color: var(--body-bg);
+  color: var(--body-color);
+  font-family: 'LXGW WenKai', '霞鹜文楷', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-color);
+}
+
+/* Font stack classes */
+.font-display {
+  font-family: 'Smiley Sans', '得意黑', 'LXGW WenKai', sans-serif;
+}
+.font-body {
+  font-family: 'LXGW WenKai', '霞鹜文楷', sans-serif;
+}
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ============================================
+   Theme toggle — 1:1 copied from creativeatishay.in
+   Sun/Moon swap with grid stacking + rotation
+   ============================================ */
+.theme-toggle {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  z-index: 10;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12));
+  transition: transform 0.2s cubic-bezier(0.34, 1.1, 0.64, 1);
+}
+.theme-toggle:hover {
+  transform: scale(1.12);
+}
+.theme-toggle:active {
+  transform: scale(0.94);
+}
+.theme-toggle svg {
+  width: 42px;
+  height: 42px;
+  display: block;
+  grid-area: 1 / 1;
+  transition: opacity 180ms, transform 320ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Default (light/minimal): sun visible, moon hidden */
+.theme-toggle .icon-moon {
+  opacity: 0;
+  transform: scale(0.6) rotate(-60deg);
+}
+
+/* Dark (creative): sun hidden, moon visible */
+[data-theme="creative"] .theme-toggle .icon-sun {
+  opacity: 0;
+  transform: scale(0.6) rotate(60deg);
+}
+[data-theme="creative"] .theme-toggle .icon-moon {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle svg {
+    transition: opacity 150ms;
+  }
+  .theme-toggle .icon-moon,
+  [data-theme="creative"] .theme-toggle .icon-sun {
+    transform: none;
+  }
+}
