@@ -4,6 +4,7 @@ import FolderNav from './components/FolderNav'
 import PostList from './components/PostList'
 import PhotoScroller from './components/PhotoScroller'
 import ContactFooter from './components/ContactFooter'
+import CommentSection from './components/CommentSection'
 import './index.css'
 
 const folders = [
@@ -13,6 +14,8 @@ const folders = [
   { id: 'camp', label: '训练营', color: '#7C3AED' },
   { id: 'media', label: '媒体报道', color: '#EC4899' },
   { id: 'free', label: '免费干货', color: '#F6C945' },
+  { id: 'reviews', label: '评论区', color: '#14B8A6' },
+  { id: 'collab', label: '合作', color: '#F43F5E' },
 ]
 
 const demoBooks = [
@@ -61,6 +64,11 @@ const demoFree = [
   { title: '月度文案精选集', desc: '每月精选 10 篇优秀文案并附拆解', source: '阅读', color: '#F59E0B', image: null },
 ]
 
+const approvedReviews = [
+  // 审核通过的评论会出现在这里
+  // { name: '', badge: '', text: '', color: '' },
+]
+
 export default function App() {
   const [activeFolder, setActiveFolder] = useState('books')
 
@@ -94,6 +102,30 @@ export default function App() {
           )}
           {activeFolder === 'free' && (
             <PostList title="免费干货" items={demoFree} />
+          )}
+          {activeFolder === 'reviews' && (
+            <CommentSection reviews={approvedReviews} />
+          )}
+          {activeFolder === 'collab' && (
+            <section className="mt-16" style={{ animation: 'fvIn 0.32s cubic-bezier(0.22, 1, 0.36, 1)' }}>
+              <h2
+                className="text-[13px] font-bold uppercase tracking-wider mb-6"
+                style={{ color: 'var(--grey3)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.08em' }}
+              >
+                合作
+              </h2>
+              <div
+                className="p-8 rounded-2xl text-center"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border-rule)' }}
+              >
+                <p className="text-[14px]" style={{ color: 'var(--grey2)' }}>
+                  合作方式规划中，敬请期待。
+                </p>
+                <p className="text-[12px] mt-2" style={{ color: 'var(--grey3)' }}>
+                  品牌合作 / 企业培训 / 内容共创 / 更多可能
+                </p>
+              </div>
+            </section>
           )}
         </div>
 
