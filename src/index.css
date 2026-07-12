@@ -3,6 +3,8 @@
 /* ============================================
    设计系统 — 从 creativeatishay.in CSS 精确提取
    中文字体：得意黑(标题) + 霞鹜文楷(正文) + JetBrains Mono(标签)
+   模式：[data-mode="minimal"] 极简 / [data-mode="creative"] 创意
+   独立于 data-theme（仅控制明暗色彩）
    ============================================ */
 
 /* 得意黑 · @font-face（本地 OTF） */
@@ -78,6 +80,37 @@
   }
 }
 
+/* ============================================
+   视觉模式变量 [data-mode="minimal"] vs [data-mode="creative"]
+   独立于 data-theme，不覆盖颜色变量
+   ============================================ */
+
+/* 极简模式 · 默认：书卷气、干净、文字为主 */
+:root[data-mode="minimal"] {
+  --mode-name-size: 24px;
+  --mode-bio-size: 14px;
+  --mode-avatar-size: 106px;
+  --mode-header-gap: 20px;
+  --mode-header-align: flex-start;
+  --mode-header-flex: row;
+  --mode-text-align: left;
+  --mode-content-max: 640px;
+  --mode-deco-opacity: 0;
+}
+
+/* 创意模式：活泼、品牌感、大字排版、居中 */
+:root[data-mode="creative"] {
+  --mode-name-size: 42px;
+  --mode-bio-size: 18px;
+  --mode-avatar-size: 140px;
+  --mode-header-gap: 16px;
+  --mode-header-align: center;
+  --mode-header-flex: column;
+  --mode-text-align: center;
+  --mode-content-max: 680px;
+  --mode-deco-opacity: 0.15;
+}
+
 /* Base styles */
 body {
   background-color: var(--body-bg);
@@ -105,8 +138,65 @@ body {
 }
 
 /* ============================================
-   Theme toggle — 1:1 copied from creativeatishay.in
-   Sun/Moon swap with grid stacking + rotation
+   模式切换按钮 — 头像上方 pill buttons
+   ============================================ */
+.mode-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 0 16px;
+  position: relative;
+  z-index: 5;
+}
+
+.mode-btn {
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--transparent-border);
+  background: var(--wash2);
+  color: var(--grey3);
+  font-size: 13px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  letter-spacing: 0.04em;
+}
+
+.mode-btn:hover {
+  color: var(--grey1);
+  border-color: var(--surface-border-hover);
+}
+
+.mode-btn[data-active="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+/* ============================================
+   云朵 — 位于太阳/月亮切换旁边
+   ============================================ */
+.cloud-icon {
+  position: absolute;
+  top: -6px;
+  right: 40px;
+  z-index: 9;
+  width: 32px;
+  height: 22px;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: cloud-float 6s ease-in-out infinite;
+}
+
+@keyframes cloud-float {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* ============================================
+   Theme toggle — 太阳/月亮
    ============================================ */
 .theme-toggle {
   position: absolute;
@@ -162,4 +252,27 @@ body {
   [data-theme="creative"] .theme-toggle .icon-sun {
     transform: none;
   }
+  .cloud-icon {
+    animation: none;
+  }
+}
+
+/* ============================================
+   创意模式 · 大鱼装饰
+   ============================================ */
+.mode-fish-deco {
+  position: absolute;
+  opacity: var(--mode-deco-opacity);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================
+   创意模式 · 名字光泽
+   ============================================ */
+.creative-name {
+  background: linear-gradient(135deg, var(--accent) 0%, #ec4899 50%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

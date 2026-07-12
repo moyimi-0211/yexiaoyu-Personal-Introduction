@@ -1,100 +1,207 @@
+import { useState } from 'react'
+
 export default function Header() {
+  const [mode, setMode] = useState(() =>
+    document.documentElement.getAttribute('data-mode') || 'minimal'
+  )
+
+  const switchMode = (next) => {
+    document.documentElement.setAttribute('data-mode', next)
+    setMode(next)
+  }
+
+  const toggleTheme = () => {
+    const root = document.documentElement
+    const current = root.getAttribute('data-theme')
+    root.setAttribute('data-theme', current === 'creative' ? 'minimal' : 'creative')
+    // force re-render for theme-dependent elements
+    setMode(m => m) // no-op to trigger re-render
+  }
+
+  const isCreative = mode === 'creative'
+
   return (
-    <header className="flex items-start gap-5 mt-10 mb-14 relative">
-      {/* Avatar */}
-      <div
-        className="w-[106px] h-[106px] rounded-[12px] flex-shrink-0"
-        style={{
-          border: '4px solid var(--photo-frame)',
-          boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 2px 7px rgba(0,0,0,0.06)',
-          backgroundImage: 'url(/avatar.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-        role="img"
-        aria-label="头像"
-      />
+    <header className="relative mt-8 mb-14">
+      {/* ========== 模式切换按钮 + 云朵 + 主题 ========== */}
+      <div className="relative flex items-center justify-between">
+        <div className="mode-switcher">
+          <button
+            className="mode-btn"
+            data-active={!isCreative}
+            onClick={() => switchMode('minimal')}
+          >
+            极简
+          </button>
+          <button
+            className="mode-btn"
+            data-active={isCreative}
+            onClick={() => switchMode('creative')}
+          >
+            创意
+          </button>
+        </div>
 
-      {/* Info + Theme toggle (copied from creativeatishay.in) */}
-      <div className="flex-1 pt-1">
-        {/* Theme toggle — positioned like original: absolute top-right */}
-        <button
-          className="theme-toggle"
-          aria-label="切换暗色模式"
-          type="button"
-          onClick={() => {
-            const root = document.documentElement
-            const current = root.getAttribute('data-theme')
-            root.setAttribute('data-theme', current === 'creative' ? 'minimal' : 'creative')
-          }}
-        >
-          {/* Sun icon — exact SVG from original site */}
-          <svg className="icon-sun" viewBox="0 0 128 128" aria-hidden="true">
-            <path d="M37.41 41.95c-9.71 12.48-9.54 34.65 2.87 45.64c14.09 12.47 33.92 12.34 46.39.87c14.95-13.76 14.09-36.66.87-49.63c-13.29-13.04-37.04-13.72-50.13 3.12z" fill="#fcc11a"/>
-            <path d="M53 37.67c-3.84-1.7-8.04 2.93-9.87 6.09c-1.83 3.17-3.53 9.38.37 10.97c3.9 1.58 6.7-1.1 9.51-5.73c2.79-4.63 4.38-9.38-.01-11.33z" fill="#fee269"/>
-            <path d="M63 20.27c-.93 1.74-.62 3.08 1.23 3.52c1.85.44 13.36 2.31 14.33 2.37c1.41.09 1.93-.97 1.76-2.2c-.18-1.23-2.99-18.46-3.25-20.04S75.14.76 73.55 2.87S63.7 18.96 63 20.27z" fill="#ffa722"/>
-            <path d="M92.8 32.23c-1.81.56-1.76 1.67-.79 3.08c.97 1.41 7.65 11.6 8.26 12.31c.62.7 1.67.88 2.55-.18c.88-1.05 11.86-16.45 12.66-17.41c1.32-1.58.53-3.25-1.49-2.73c-1.54.41-20.05 4.58-21.19 4.93z" fill="#ffa722"/>
-            <path d="M106.6 61.86c-1.3-.74-2.99-.53-3.43 1.14c-.44 1.67-2.37 13.8-2.55 14.86s.62 2.11 1.93 1.85s19.45-2.95 20.66-3.25c2.11-.53 2.81-2.64.62-4.22c-1.42-1.03-16-9.68-17.23-10.38z" fill="#ffa722"/>
-            <path d="M92.09 90.6c1.4-.75 2.64-.18 2.99 1.41c.35 1.58 4.22 17.76 4.84 20.75c.31 1.5-1.41 2.73-2.81 1.85c-1.41-.88-16.69-11.53-17.67-12.4c-1.41-1.23-.43-2.51.26-3.16c1.4-1.33 11.07-7.74 12.39-8.45z" fill="#ffa722"/>
-            <path d="M49.54 99.48c-1.77-.17-2.29 1.41-2.02 2.81c.26 1.41 2.9 19.24 3.08 20.57c.26 1.93 2.29 2.73 3.6.79s10.35-16.4 11.08-17.76c1.32-2.46.35-2.99-.97-3.6c-1.31-.61-12.92-2.63-14.77-2.81z" fill="#ffa722"/>
-            <path d="M24.23 79c1.23-2.02 2.81-1.49 3.96.44c.78 1.32 7.38 10.2 8 11.16c.62.97.88 2.81-1.05 3.25c-1.95.45-17.68 4.58-20.14 5.02c-2.46.44-3.87-1.49-2.29-3.6c.92-1.24 10.82-15.12 11.52-16.27z" fill="#ffa722"/>
-            <path d="M20.89 63.7c2.25 1 3.31.64 3.78-.97c.62-2.11 2.46-11.78 2.55-13.98c.06-1.43-.53-2.81-2.73-2.46S6.47 48.85 4.45 49.55c-2.35.82-2.18 3.4-.62 4.22c1.85.97 15.47 9.23 17.06 9.93z" fill="#ffa722"/>
-            <path d="M48.23 26.78c1.27-1.01.88-2.46-.26-3.25c-1.14-.79-15.26-11-17.05-12.4c-1.58-1.23-3.52-.79-2.99 2.02c.38 2.02 4.88 19.7 5.19 20.92c.35 1.41 1.41 2.11 2.64 1.23c1.21-.87 11.15-7.46 12.47-8.52z" fill="#ffa722"/>
+        <div className="relative" style={{ marginTop: -16 }}>
+          {/* 云朵 */}
+          <svg className="cloud-icon" viewBox="0 0 40 24" aria-hidden="true">
+            <path d="M10 20 Q4 20 2 15 Q0 10 5 7 Q6 3 11 3 Q14 0 19 2 Q22 -1 27 1 Q33 1 36 6 Q40 8 38 13 Q37 18 32 20 Z"
+              fill="var(--grey3)" opacity="0.35" />
           </svg>
 
-          {/* Moon icon — exact SVG from original site */}
-          <svg className="icon-moon" viewBox="0 0 200 200" fillRule="evenodd" clipRule="evenodd" aria-hidden="true">
-            <circle cx="100" cy="100" r="94.147" fill="#e4e2dc"/>
-            <clipPath id="moon-clip">
-              <circle cx="100" cy="100" r="94.147"/>
-            </clipPath>
-            <g clipPath="url(#moon-clip)">
-              <path d="M173.111-46.282l59.723 39.66 25.005 67.189-19.264 69.056-56.174 44.544-71.628 3.018-59.723-39.66-25.005-67.189L45.308 1.28l56.174-44.544 71.629-3.018z" fill="#f6f4ef"/>
-            </g>
-            <path d="M158.551 135.006l-4.072 2.503 6.822 5.83 1.8-4.404-4.55-3.929zM116.907 69.037l-6.653 4.089 11.145 9.525 2.941-7.195-7.433-6.419zM67.138 119.523l-4.542 2.791 7.61 6.503 2.007-4.912-5.075-4.382zM80.286 37.068l4.825-3.028-8.193-6.873-2.097 5.268 5.465 4.633zM143.466 148.273l5.198-3.261-8.826-7.403-2.259 5.674 5.887 4.99z" fill="#e4e2dc" fillRule="nonzero"/>
-            <path d="M163.108 73.155l2.628 13.525-12.051 6.679-10.076-9.398 5.824-12.486 13.675 1.68zM83.672 53.684l-7.194 20.408-21.332-.919-5.99-20.976 17.63-12.045 16.886 13.532zM91.359 125.589l-5.626-25.934 22.927-13.364 19.794 17.674-10.692 24.288-26.403-2.664zM35.02 112.946l-3.955-14.875 12.902-8.012 11.929 9.923-5.53 14.145-15.346-1.181zM104.602 180.886l-15.004-13.214 8.155-17.962 20.044 2.111 4.233 19.268-17.428 9.797z" fill="#e4e2dc"/>
-          </svg>
-        </button>
+          {/* 太阳/月亮切换 */}
+          <button
+            className="theme-toggle relative"
+            style={{ position: 'relative', top: 0, right: 0, marginLeft: 8 }}
+            aria-label="切换暗色模式"
+            type="button"
+            onClick={toggleTheme}
+          >
+            {/* Sun */}
+            <svg className="icon-sun" viewBox="0 0 128 128" aria-hidden="true">
+              <path d="M37.41 41.95c-9.71 12.48-9.54 34.65 2.87 45.64c14.09 12.47 33.92 12.34 46.39.87c14.95-13.76 14.09-36.66.87-49.63c-13.29-13.04-37.04-13.72-50.13 3.12z" fill="#fcc11a"/>
+              <path d="M53 37.67c-3.84-1.7-8.04 2.93-9.87 6.09c-1.83 3.17-3.53 9.38.37 10.97c3.9 1.58 6.7-1.1 9.51-5.73c2.79-4.63 4.38-9.38-.01-11.33z" fill="#fee269"/>
+              <path d="M63 20.27c-.93 1.74-.62 3.08 1.23 3.52c1.85.44 13.36 2.31 14.33 2.37c1.41.09 1.93-.97 1.76-2.2c-.18-1.23-2.99-18.46-3.25-20.04S75.14.76 73.55 2.87S63.7 18.96 63 20.27z" fill="#ffa722"/>
+              <path d="M92.8 32.23c-1.81.56-1.76 1.67-.79 3.08c.97 1.41 7.65 11.6 8.26 12.31c.62.7 1.67.88 2.55-.18c.88-1.05 11.86-16.45 12.66-17.41c1.32-1.58.53-3.25-1.49-2.73c-1.54.41-20.05 4.58-21.19 4.93z" fill="#ffa722"/>
+              <path d="M106.6 61.86c-1.3-.74-2.99-.53-3.43 1.14c-.44 1.67-2.37 13.8-2.55 14.86s.62 2.11 1.93 1.85s19.45-2.95 20.66-3.25c2.11-.53 2.81-2.64.62-4.22c-1.42-1.03-16-9.68-17.23-10.38z" fill="#ffa722"/>
+              <path d="M92.09 90.6c1.4-.75 2.64-.18 2.99 1.41c.35 1.58 4.22 17.76 4.84 20.75c.31 1.5-1.41 2.73-2.81 1.85c-1.41-.88-16.69-11.53-17.67-12.4c-1.41-1.23-.43-2.51.26-3.16c1.4-1.33 11.07-7.74 12.39-8.45z" fill="#ffa722"/>
+              <path d="M49.54 99.48c-1.77-.17-2.29 1.41-2.02 2.81c.26 1.41 2.9 19.24 3.08 20.57c.26 1.93 2.29 2.73 3.6.79s10.35-16.4 11.08-17.76c1.32-2.46.35-2.99-.97-3.6c-1.31-.61-12.92-2.63-14.77-2.81z" fill="#ffa722"/>
+              <path d="M24.23 79c1.23-2.02 2.81-1.49 3.96.44c.78 1.32 7.38 10.2 8 11.16c.62.97.88 2.81-1.05 3.25c-1.95.45-17.68 4.58-20.14 5.02c-2.46.44-3.87-1.49-2.29-3.6c.92-1.24 10.82-15.12 11.52-16.27z" fill="#ffa722"/>
+              <path d="M20.89 63.7c2.25 1 3.31.64 3.78-.97c.62-2.11 2.46-11.78 2.55-13.98c.06-1.43-.53-2.81-2.73-2.46S6.47 48.85 4.45 49.55c-2.35.82-2.18 3.4-.62 4.22c1.85.97 15.47 9.23 17.06 9.93z" fill="#ffa722"/>
+              <path d="M48.23 26.78c1.27-1.01.88-2.46-.26-3.25c-1.14-.79-15.26-11-17.05-12.4c-1.58-1.23-3.52-.79-2.99 2.02c.38 2.02 4.88 19.7 5.19 20.92c.35 1.41 1.41 2.11 2.64 1.23c1.21-.87 11.15-7.46 12.47-8.52z" fill="#ffa722"/>
+            </svg>
 
-        <div className="pr-12">
-          <div className="flex items-center gap-2 mb-1">
+            {/* Moon */}
+            <svg className="icon-moon" viewBox="0 0 200 200" fillRule="evenodd" clipRule="evenodd" aria-hidden="true">
+              <circle cx="100" cy="100" r="94.147" fill="#e4e2dc"/>
+              <clipPath id="moon-clip">
+                <circle cx="100" cy="100" r="94.147"/>
+              </clipPath>
+              <g clipPath="url(#moon-clip)">
+                <path d="M173.111-46.282l59.723 39.66 25.005 67.189-19.264 69.056-56.174 44.544-71.628 3.018-59.723-39.66-25.005-67.189L45.308 1.28l56.174-44.544 71.629-3.018z" fill="#f6f4ef"/>
+              </g>
+              <path d="M158.551 135.006l-4.072 2.503 6.822 5.83 1.8-4.404-4.55-3.929zM116.907 69.037l-6.653 4.089 11.145 9.525 2.941-7.195-7.433-6.419zM67.138 119.523l-4.542 2.791 7.61 6.503 2.007-4.912-5.075-4.382zM80.286 37.068l4.825-3.028-8.193-6.873-2.097 5.268 5.465 4.633zM143.466 148.273l5.198-3.261-8.826-7.403-2.259 5.674 5.887 4.99z" fill="#e4e2dc" fillRule="nonzero"/>
+              <path d="M163.108 73.155l2.628 13.525-12.051 6.679-10.076-9.398 5.824-12.486 13.675 1.68zM83.672 53.684l-7.194 20.408-21.332-.919-5.99-20.976 17.63-12.045 16.886 13.532zM91.359 125.589l-5.626-25.934 22.927-13.364 19.794 17.674-10.692 24.288-26.403-2.664zM35.02 112.946l-3.955-14.875 12.902-8.012 11.929 9.923-5.53 14.145-15.346-1.181zM104.602 180.886l-15.004-13.214 8.155-17.962 20.044 2.111 4.233 19.268-17.428 9.797z" fill="#e4e2dc"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* ========== 极简模式 ========== */}
+      {!isCreative && (
+        <div className="flex items-start gap-5">
+          <div
+            className="w-[106px] h-[106px] rounded-[12px] flex-shrink-0"
+            style={{
+              border: '4px solid var(--photo-frame)',
+              boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 2px 7px rgba(0,0,0,0.06)',
+              backgroundImage: 'url(/avatar.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+            role="img"
+            aria-label="头像"
+          />
+
+          <div className="flex-1 pt-1">
+            <div className="flex items-center gap-2 mb-1">
+              <h1
+                className="text-[24px] font-bold m-0 leading-tight"
+                style={{ fontFamily: "'Noto Sans SC', '思源黑体', sans-serif", color: 'var(--grey1)' }}
+              >
+                叶小鱼
+              </h1>
+              <span
+                className="inline-flex items-center justify-center w-4 h-4 rounded-full text-[10px]"
+                style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
+                title="已验证"
+              >✓</span>
+            </div>
+            <p className="text-[14px] m-0" style={{ color: 'var(--grey2)' }}>
+              畅销书作者 & 双一流大学教材导师
+            </p>
+            <p className="text-[14px] mt-4 mb-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
+              一直致力于研究文案方法论：
+            </p>
+            <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+              通过一篇卖货文案带来30万销售额；
+            </p>
+            <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+              通过文案给一服装公司带来80%加盟客户；
+            </p>
+            <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+              通过一篇软文，让100+自媒体主动转载；
+            </p>
+            <p className="text-[14px] mt-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
+              关注如何更好地教文案：
+            </p>
+            <p className="text-[14px] mt-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+              通过文案训练营，帮众多文案小白成功转型并实现文案变现。
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ========== 创意模式 ========== */}
+      {isCreative && (
+        <div className="flex flex-col items-center text-center relative">
+          {/* 小鱼装饰背景 */}
+          <svg className="mode-fish-deco" style={{ top: -20, right: 0, width: 120, opacity: 0.08 }} viewBox="0 0 100 60" aria-hidden="true">
+            <path d="M10 30 Q25 5 50 30 Q75 55 90 30" fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round"/>
+            <circle cx="50" cy="18" r="4" fill="var(--accent)" opacity="0.6"/>
+          </svg>
+
+          <div
+            className="rounded-[16px] flex-shrink-0 mb-6"
+            style={{
+              width: 140,
+              height: 140,
+              border: '5px solid var(--photo-frame)',
+              boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.1)',
+              backgroundImage: 'url(/avatar.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+            role="img"
+            aria-label="头像"
+          />
+
+          <div className="flex items-center gap-3 mb-3">
             <h1
-              className="text-[24px] font-bold m-0 leading-tight"
-              style={{ fontFamily: "'Noto Sans SC', '思源黑体', sans-serif", color: 'var(--grey1)' }}
+              className="creative-name font-bold m-0 leading-none"
+              style={{ fontFamily: "'Noto Sans SC', '思源黑体', sans-serif", fontSize: 48 }}
             >
               叶小鱼
             </h1>
             <span
-              className="inline-flex items-center justify-center w-4 h-4 rounded-full text-[10px]"
+              className="inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px]"
               style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
               title="已验证"
-            >
-              ✓
-            </span>
+            >✓</span>
           </div>
-          <p className="text-[14px] m-0" style={{ color: 'var(--grey2)' }}>
+
+          <p className="text-[18px] mb-6" style={{ color: 'var(--grey2)' }}>
             畅销书作者 & 双一流大学教材导师
           </p>
-          <p className="text-[14px] mt-4 mb-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
-            一直致力于研究文案方法论：
-          </p>
-          <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-            通过一篇卖货文案带来30万销售额；
-          </p>
-          <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-            通过文案给一服装公司带来80%加盟客户；
-          </p>
-          <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-            通过一篇软文，让100+自媒体主动转载；
-          </p>
-          <p className="text-[14px] mt-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
-            关注如何更好地教文案：
-          </p>
-          <p className="text-[14px] mt-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-            通过文案训练营，帮众多文案小白成功转型并实现文案变现。
-          </p>
+
+          <div style={{ maxWidth: 520, color: 'var(--grey2)', fontSize: 16, lineHeight: '2' }}>
+            <p className="mb-3">
+              一直致力于研究文案方法论。
+            </p>
+            <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>
+              一篇卖货文案带来30万销售额
+            </p>
+            <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>
+              为服装公司带来80%加盟客户
+            </p>
+            <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>
+              一篇软文让100+自媒体主动转载
+            </p>
+            <p className="mt-6">
+              关注如何更好地教文案，通过训练营帮众多文案小白成功转型并实现文案变现。
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </header>
   )
 }
