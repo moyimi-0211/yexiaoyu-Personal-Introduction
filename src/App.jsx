@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from './components/Header'
+import FolderNav from './components/FolderNav'
 import FolderGrid from './components/FolderGrid'
 import PostList from './components/PostList'
 import PhotoScroller from './components/PhotoScroller'
@@ -8,14 +9,14 @@ import CommentSection from './components/CommentSection'
 import './index.css'
 
 const folders = [
-  { id: 'books', label: '出版著作', count: '3本', color: '#3B5BFF', image: null },
-  { id: 'cases', label: '文案案例', count: '12篇', color: '#F97316', image: null },
-  { id: 'students', label: '学员成果', count: '500+人', color: '#10B981', image: null },
-  { id: 'camp', label: '训练营', count: '8期', color: '#7C3AED', image: null },
-  { id: 'media', label: '媒体报道', count: '15篇', color: '#EC4899', image: null },
-  { id: 'free', label: '免费干货', count: '20+', color: '#F6C945', image: null },
-  { id: 'reviews', label: '评论区', count: null, color: '#14B8A6', image: null },
-  { id: 'collab', label: '合作', count: null, color: '#F43F5E', image: null },
+  { id: 'books', label: '出版著作', count: '3本', color: '#3B5BFF', thumb: 'linear-gradient(135deg, #1a1a2e 0%, #3B5BFF 100%)' },
+  { id: 'cases', label: '文案案例', count: '12篇', color: '#F97316', thumb: 'linear-gradient(135deg, #1a1a2e 0%, #ED8936 100%)' },
+  { id: 'students', label: '学员成果', count: '500+人', color: '#10B981', thumb: 'linear-gradient(135deg, #064e3b 0%, #10B981 100%)' },
+  { id: 'camp', label: '训练营', count: '8期', color: '#7C3AED', thumb: 'linear-gradient(135deg, #1a1033 0%, #8B5CF6 100%)' },
+  { id: 'media', label: '媒体报道', count: '15篇', color: '#EC4899', thumb: 'linear-gradient(135deg, #31102a 0%, #EC4899 100%)' },
+  { id: 'free', label: '免费干货', count: '20+', color: '#F6C945', thumb: 'linear-gradient(135deg, #332b10 0%, #F59E0B 100%)' },
+  { id: 'reviews', label: '评论区', count: null, color: '#14B8A6', thumb: 'linear-gradient(135deg, #0d3330 0%, #14B8A6 100%)' },
+  { id: 'collab', label: '合作', count: null, color: '#F43F5E', thumb: 'linear-gradient(135deg, #33101a 0%, #F43F5E 100%)' },
 ]
 
 const demoBooks = [
@@ -64,13 +65,24 @@ const demoFree = [
   { title: '月度文案精选集', desc: '每月精选 10 篇优秀文案并附拆解', source: '阅读', color: '#F59E0B', image: null },
 ]
 
-const approvedReviews = [
-  // 审核通过的评论会出现在这里
-  // { name: '', badge: '', text: '', color: '' },
-]
+const approvedReviews = []
 
 export default function App() {
   const [activeFolder, setActiveFolder] = useState('books')
+  const [mode, setMode] = useState(() =>
+    document.documentElement.getAttribute('data-mode') || 'minimal'
+  )
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const next = document.documentElement.getAttribute('data-mode')
+      if (next && next !== mode) setMode(next)
+    })
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-mode'] })
+    return () => observer.disconnect()
+  }, [mode])
+
+  const isCreative = mode === 'creative'
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--body-bg)', color: 'var(--body-color)' }}>
@@ -78,11 +90,19 @@ export default function App() {
 
         <Header />
 
-        <FolderGrid
-          folders={folders}
-          active={activeFolder}
-          onSelect={setActiveFolder}
-        />
+        {isCreative ? (
+          <FolderGrid
+            folders={folders}
+            active={activeFolder}
+            onSelect={setActiveFolder}
+          />
+        ) : (
+          <FolderNav
+            folders={folders}
+            active={activeFolder}
+            onSelect={setActiveFolder}
+          />
+        )}
 
         <div className="mt-16">
           {activeFolder === 'books' && (

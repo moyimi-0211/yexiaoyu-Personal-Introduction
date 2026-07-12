@@ -9,11 +9,9 @@ export default function FolderGrid({ folders, active, onSelect }) {
         >
           <div className="folder-tab-band" style={{ backgroundColor: f.color }} />
           <div className="folder-body">
-            {f.image && (
-              <div className="folder-thumb">
-                <img src={f.image} alt={f.label} loading="lazy" />
-              </div>
-            )}
+            <div className="folder-thumb" style={{ background: f.thumb }}>
+              <span className="folder-thumb-icon">{f.icon || ''}</span>
+            </div>
             <div className="folder-meta">
               <span className="folder-label">{f.label}</span>
               {f.count && <span className="folder-count">{f.count}</span>}
