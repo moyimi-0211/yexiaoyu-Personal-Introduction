@@ -33,6 +33,9 @@ const folders = [
   { id: 'collab', label: '合作', count: null, color: '#FFA500',
     previews: ['linear-gradient(135deg, #1a1000 0%, #2a1a00 100%)', 'linear-gradient(135deg, #0d0800 0%, #3a2500 100%)', 'linear-gradient(135deg, #1a0d00 0%, #F43F5E 100%)']
   },
+  { id: 'achievements', label: '成就', count: '10+项', color: '#D97D2B',
+    previews: ['linear-gradient(135deg, #1a0d00 0%, #2a1a00 100%)', 'linear-gradient(135deg, #0d0600 0%, #3a2500 100%)', 'linear-gradient(135deg, #1a1000 0%, #F59E0B 100%)']
+  },
 ]
 
 const demoBooks = [

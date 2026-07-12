@@ -27,13 +27,15 @@ export default function FolderGrid({ folders, active, onSelect }) {
               {/* 预览屏幕 */}
               <div className="folder-screen-frame">
                 <div className="folder-screen">
-                  {previews.map((bg, i) => (
-                    <div
-                      key={i}
-                      className="folder-slide"
-                      style={{ background: bg, animationDelay: `${i * 1.8}s` }}
-                    />
-                  ))}
+                  <div className="folder-screen-inner">
+                    {previews.map((bg, i) => (
+                      <div
+                        key={i}
+                        className="folder-slide"
+                        style={{ background: bg }}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

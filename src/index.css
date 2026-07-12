@@ -359,6 +359,7 @@ body {
 .folder-screen-frame {
   padding: 10px;
   background: none;
+  perspective: 900px;
 }
 
 .folder-screen {
@@ -367,29 +368,43 @@ body {
   aspect-ratio: 4/3;
   border-radius: 8px;
   overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.35);
+  border: 2px solid rgba(255,255,255,0.4);
   background: #1a1a2e;
+  transform-style: preserve-3d;
 }
 
-/* 预览图片层叠 */
+/* 3D 翻转内层 */
+.folder-screen-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: folderFlip3D 6s infinite cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* 每张预览 = 一个 3D 面 */
 .folder-slide {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  animation: folderFlip 5.4s infinite ease-in-out;
+  backface-visibility: hidden;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-.folder-slide:nth-child(1) { opacity: 1; animation-delay: 0s; }
-.folder-slide:nth-child(2) { opacity: 0; animation-delay: 1.8s; }
-.folder-slide:nth-child(3) { opacity: 0; animation-delay: 3.6s; }
+.folder-slide:nth-child(1) { transform: rotateY(0deg) translateZ(1px); }
+.folder-slide:nth-child(2) { transform: rotateY(120deg) translateZ(1px); }
+.folder-slide:nth-child(3) { transform: rotateY(240deg) translateZ(1px); }
 
-@keyframes folderFlip {
-  0%, 29%    { opacity: 1; transform: scale(1); }
-  33%, 100%  { opacity: 0; transform: scale(1.02); }
+/* 3 张面轮转：0°→120°→240°→360°(=0°) */
+@keyframes folderFlip3D {
+  0%, 28%     { transform: rotateY(0deg); }
+  33%, 61%    { transform: rotateY(120deg); }
+  66%, 94%    { transform: rotateY(240deg); }
+  100%        { transform: rotateY(360deg); }
 }
 
-/* 悬停时翻页 */
-.folder-screen:hover .folder-slide {
+/* 悬停暂停 */
+.folder-screen:hover .folder-screen-inner {
   animation-play-state: paused;
 }
 
