@@ -16,9 +16,9 @@ const folders = [
 ]
 
 const demoBooks = [
-  { title: '《文案方法论》', desc: '从入门到变现的系统实操手册', source: '畅销书', color: '#3B5BFF', image: null },
-  { title: '《爆款文案的底层逻辑》', desc: '拆解 100+ 篇爆文背后的通用公式', source: '双一流教材', color: '#6366F1', image: null },
-  { title: '《新媒体文案实战手册》', desc: '小红书+公众号+短视频文案全攻略', source: '新书', color: '#8B5CF6', image: null },
+  { title: '《文案变现》', desc: '从入门到变现的系统实操手册', source: '畅销书', color: '#3B5BFF', image: null },
+  { title: '《新媒体文案创作与传播》', desc: '小红书+公众号+短视频文案全攻略', source: '双一流教材', color: '#6366F1', image: null },
+  { title: '《一字千金》', desc: '写好每一个字，让文案自带销量', source: '新书', color: '#8B5CF6', image: null },
 ]
 
 const demoCases = [
