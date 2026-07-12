@@ -1,21 +1,35 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 export default function Header() {
   const [mode, setMode] = useState(() =>
     document.documentElement.getAttribute('data-mode') || 'minimal'
   )
+  const [blink, setBlink] = useState(false)
+  const contentRef = useRef(null)
 
   const switchMode = (next) => {
-    document.documentElement.setAttribute('data-mode', next)
-    setMode(next)
+    if (next === mode) return
+
+    // 闭眼
+    setBlink(true)
+
+    // 在最暗的瞬间切换布局
+    setTimeout(() => {
+      document.documentElement.setAttribute('data-mode', next)
+      setMode(next)
+    }, 70)
+
+    // 睁眼
+    setTimeout(() => {
+      setBlink(false)
+    }, 180)
   }
 
   const toggleTheme = () => {
     const root = document.documentElement
     const current = root.getAttribute('data-theme')
     root.setAttribute('data-theme', current === 'creative' ? 'minimal' : 'creative')
-    // force re-render for theme-dependent elements
-    setMode(m => m) // no-op to trigger re-render
+    setMode(m => m)
   }
 
   const isCreative = mode === 'creative'
@@ -43,13 +57,11 @@ export default function Header() {
         </div>
 
         <div className="relative" style={{ marginTop: -16 }}>
-          {/* 云朵 */}
           <svg className="cloud-icon" viewBox="0 0 40 24" aria-hidden="true">
             <path d="M10 20 Q4 20 2 15 Q0 10 5 7 Q6 3 11 3 Q14 0 19 2 Q22 -1 27 1 Q33 1 36 6 Q40 8 38 13 Q37 18 32 20 Z"
               fill="var(--grey3)" opacity="0.35" />
           </svg>
 
-          {/* 太阳/月亮切换 */}
           <button
             className="theme-toggle relative"
             style={{ position: 'relative', top: 0, right: 0, marginLeft: 8 }}
@@ -57,7 +69,6 @@ export default function Header() {
             type="button"
             onClick={toggleTheme}
           >
-            {/* Sun */}
             <svg className="icon-sun" viewBox="0 0 128 128" aria-hidden="true">
               <path d="M37.41 41.95c-9.71 12.48-9.54 34.65 2.87 45.64c14.09 12.47 33.92 12.34 46.39.87c14.95-13.76 14.09-36.66.87-49.63c-13.29-13.04-37.04-13.72-50.13 3.12z" fill="#fcc11a"/>
               <path d="M53 37.67c-3.84-1.7-8.04 2.93-9.87 6.09c-1.83 3.17-3.53 9.38.37 10.97c3.9 1.58 6.7-1.1 9.51-5.73c2.79-4.63 4.38-9.38-.01-11.33z" fill="#fee269"/>
@@ -71,7 +82,6 @@ export default function Header() {
               <path d="M48.23 26.78c1.27-1.01.88-2.46-.26-3.25c-1.14-.79-15.26-11-17.05-12.4c-1.58-1.23-3.52-.79-2.99 2.02c.38 2.02 4.88 19.7 5.19 20.92c.35 1.41 1.41 2.11 2.64 1.23c1.21-.87 11.15-7.46 12.47-8.52z" fill="#ffa722"/>
             </svg>
 
-            {/* Moon */}
             <svg className="icon-moon" viewBox="0 0 200 200" fillRule="evenodd" clipRule="evenodd" aria-hidden="true">
               <circle cx="100" cy="100" r="94.147" fill="#e4e2dc"/>
               <clipPath id="moon-clip">
@@ -87,122 +97,117 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ========== 极简模式 ========== */}
-      {!isCreative && (
-        <div className="flex items-start gap-5">
-          <div
-            className="w-[106px] h-[106px] rounded-[12px] flex-shrink-0"
-            style={{
-              border: '4px solid var(--photo-frame)',
-              boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 2px 7px rgba(0,0,0,0.06)',
-              backgroundImage: 'url(/avatar.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-            role="img"
-            aria-label="头像"
-          />
+      {/* ========== 眨眼切换容器 ========== */}
+      <div
+        ref={contentRef}
+        className={blink ? 'blink-active' : ''}
+      >
+        {/* ========== 极简模式 ========== */}
+        {!isCreative && (
+          <div className="flex items-start gap-5">
+            <div
+              className="w-[106px] h-[106px] rounded-[12px] flex-shrink-0"
+              style={{
+                border: '4px solid var(--photo-frame)',
+                boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 2px 7px rgba(0,0,0,0.06)',
+                backgroundImage: 'url(/avatar.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+              role="img"
+              aria-label="头像"
+            />
 
-          <div className="flex-1 pt-1">
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex-1 pt-1">
+              <div className="flex items-center gap-2 mb-1">
+                <h1
+                  className="text-[24px] font-bold m-0 leading-tight"
+                  style={{ fontFamily: "'Noto Sans SC', '思源黑体', sans-serif", color: 'var(--grey1)' }}
+                >
+                  叶小鱼
+                </h1>
+                <span
+                  className="inline-flex items-center justify-center w-4 h-4 rounded-full text-[10px]"
+                  style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
+                  title="已验证"
+                >✓</span>
+              </div>
+              <p className="text-[14px] m-0" style={{ color: 'var(--grey2)' }}>
+                畅销书作者 & 双一流大学教材导师
+              </p>
+              <p className="text-[14px] mt-4 mb-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
+                一直致力于研究文案方法论：
+              </p>
+              <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+                通过一篇卖货文案带来30万销售额；
+              </p>
+              <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+                通过文案给一服装公司带来80%加盟客户；
+              </p>
+              <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+                通过一篇软文，让100+自媒体主动转载；
+              </p>
+              <p className="text-[14px] mt-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
+                关注如何更好地教文案：
+              </p>
+              <p className="text-[14px] mt-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+                通过文案训练营，帮众多文案小白成功转型并实现文案变现。
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ========== 创意模式 ========== */}
+        {isCreative && (
+          <div className="flex flex-col items-center text-center relative">
+            <svg className="mode-fish-deco" style={{ top: -20, right: 0, width: 120, opacity: 0.08 }} viewBox="0 0 100 60" aria-hidden="true">
+              <path d="M10 30 Q25 5 50 30 Q75 55 90 30" fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round"/>
+              <circle cx="50" cy="18" r="4" fill="var(--accent)" opacity="0.6"/>
+            </svg>
+
+            <div
+              className="rounded-[16px] flex-shrink-0 mb-6"
+              style={{
+                width: 140,
+                height: 140,
+                border: '5px solid var(--photo-frame)',
+                boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.1)',
+                backgroundImage: 'url(/avatar.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+              role="img"
+              aria-label="头像"
+            />
+
+            <div className="flex items-center gap-3 mb-3">
               <h1
-                className="text-[24px] font-bold m-0 leading-tight"
-                style={{ fontFamily: "'Noto Sans SC', '思源黑体', sans-serif", color: 'var(--grey1)' }}
+                className="creative-name font-bold m-0 leading-none"
+                style={{ fontFamily: "'Noto Sans SC', '思源黑体', sans-serif", fontSize: 48 }}
               >
                 叶小鱼
               </h1>
               <span
-                className="inline-flex items-center justify-center w-4 h-4 rounded-full text-[10px]"
+                className="inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px]"
                 style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
                 title="已验证"
               >✓</span>
             </div>
-            <p className="text-[14px] m-0" style={{ color: 'var(--grey2)' }}>
+
+            <p className="text-[18px] mb-6" style={{ color: 'var(--grey2)' }}>
               畅销书作者 & 双一流大学教材导师
             </p>
-            <p className="text-[14px] mt-4 mb-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
-              一直致力于研究文案方法论：
-            </p>
-            <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-              通过一篇卖货文案带来30万销售额；
-            </p>
-            <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-              通过文案给一服装公司带来80%加盟客户；
-            </p>
-            <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-              通过一篇软文，让100+自媒体主动转载；
-            </p>
-            <p className="text-[14px] mt-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
-              关注如何更好地教文案：
-            </p>
-            <p className="text-[14px] mt-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-              通过文案训练营，帮众多文案小白成功转型并实现文案变现。
-            </p>
+
+            <div style={{ maxWidth: 520, color: 'var(--grey2)', fontSize: 16, lineHeight: '2' }}>
+              <p className="mb-3">一直致力于研究文案方法论。</p>
+              <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>一篇卖货文案带来30万销售额</p>
+              <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>为服装公司带来80%加盟客户</p>
+              <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>一篇软文让100+自媒体主动转载</p>
+              <p className="mt-6">关注如何更好地教文案，通过训练营帮众多文案小白成功转型并实现文案变现。</p>
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* ========== 创意模式 ========== */}
-      {isCreative && (
-        <div className="flex flex-col items-center text-center relative">
-          {/* 小鱼装饰背景 */}
-          <svg className="mode-fish-deco" style={{ top: -20, right: 0, width: 120, opacity: 0.08 }} viewBox="0 0 100 60" aria-hidden="true">
-            <path d="M10 30 Q25 5 50 30 Q75 55 90 30" fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round"/>
-            <circle cx="50" cy="18" r="4" fill="var(--accent)" opacity="0.6"/>
-          </svg>
-
-          <div
-            className="rounded-[16px] flex-shrink-0 mb-6"
-            style={{
-              width: 140,
-              height: 140,
-              border: '5px solid var(--photo-frame)',
-              boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.1)',
-              backgroundImage: 'url(/avatar.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-            role="img"
-            aria-label="头像"
-          />
-
-          <div className="flex items-center gap-3 mb-3">
-            <h1
-              className="creative-name font-bold m-0 leading-none"
-              style={{ fontFamily: "'Noto Sans SC', '思源黑体', sans-serif", fontSize: 48 }}
-            >
-              叶小鱼
-            </h1>
-            <span
-              className="inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px]"
-              style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
-              title="已验证"
-            >✓</span>
-          </div>
-
-          <p className="text-[18px] mb-6" style={{ color: 'var(--grey2)' }}>
-            畅销书作者 & 双一流大学教材导师
-          </p>
-
-          <div style={{ maxWidth: 520, color: 'var(--grey2)', fontSize: 16, lineHeight: '2' }}>
-            <p className="mb-3">
-              一直致力于研究文案方法论。
-            </p>
-            <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>
-              一篇卖货文案带来30万销售额
-            </p>
-            <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>
-              为服装公司带来80%加盟客户
-            </p>
-            <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>
-              一篇软文让100+自媒体主动转载
-            </p>
-            <p className="mt-6">
-              关注如何更好地教文案，通过训练营帮众多文案小白成功转型并实现文案变现。
-            </p>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   )
 }
