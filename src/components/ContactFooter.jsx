@@ -5,19 +5,19 @@ export default function ContactFooter() {
         className="text-[13px] font-bold uppercase tracking-wider mb-6"
         style={{ color: 'var(--grey3)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.08em' }}
       >
-        聊聊？
+        联系
       </h2>
 
       <p className="text-[14px] leading-relaxed mb-6" style={{ color: 'var(--grey2)' }}>
-        有项目想合作？或者只是想聊聊天？来，交个朋友。
+        想学文案？有合作需求？或者只是想聊聊写作这件事——来，交个朋友。
       </p>
 
       <div className="flex flex-wrap gap-3">
         {[
-          { label: '邮件', href: 'mailto:hello@example.com' },
-          { label: 'GitHub', href: 'https://github.com' },
+          { label: '微信', href: '#' },
+          { label: '知乎', href: 'https://zhihu.com' },
           { label: '小红书', href: 'https://xiaohongshu.com' },
-          { label: '即刻', href: 'https://jike.com' },
+          { label: '公众号', href: '#' },
         ].map(link => (
           <a
             key={link.label}
@@ -37,7 +37,7 @@ export default function ContactFooter() {
       </div>
 
       <p className="mt-16 text-[12px]" style={{ color: 'var(--grey3)' }}>
-        © {new Date().getFullYear()} 叶小鱼 · 用 React + Tailwind 搭建
+        © {new Date().getFullYear()} 叶小鱼 · 用文字改变生活
       </p>
     </footer>
   )
