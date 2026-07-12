@@ -176,8 +176,8 @@ body {
 }
 
 .mode-seg-active {
-  background: var(--accent);
-  color: #fff;
+  background: var(--grey1);
+  color: var(--body-bg);
   font-weight: 600;
   border-radius: 18px;
   margin: 2px;
