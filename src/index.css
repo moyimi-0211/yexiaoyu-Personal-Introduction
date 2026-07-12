@@ -361,10 +361,10 @@ body {
 /* — 3 层卡片叠放容器 — */
 .folder-stack-wrap {
   position: absolute;
-  top: 4%;
-  left: 6%;
-  right: 6%;
-  bottom: 18%;
+  top: 8%;
+  left: 10%;
+  right: 10%;
+  bottom: 30%;
   z-index: 1;
 }
 
