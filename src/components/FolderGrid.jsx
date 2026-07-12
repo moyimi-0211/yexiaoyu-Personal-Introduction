@@ -1,34 +1,27 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 
-// 十六进制 → RGB（给 box-shadow 用）
-function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1, 3), 16)
-  const g = parseInt(hex.slice(3, 5), 16)
-  const b = parseInt(hex.slice(5, 7), 16)
-  return `${r},${g},${b}`
-}
-
 /* ============================================================
-   FolderCard — 单个文件夹卡片，独立管理 hover 翻页
+   FolderCard — 单个文件夹卡片
+   参考 creativeatishay.in：彩色底座 + 3 层设备卡片错位旋转叠放
+   hover 时前端卡片 3D 翻转循环预览
    ============================================================ */
 function FolderCard({ folder, isActive, onSelect }) {
   const [isHovered, setIsHovered] = useState(false)
-  const [activeIdx, setActiveIdx] = useState(0)       // 当前预览索引 0/1/2
+  const [activeIdx, setActiveIdx] = useState(0)
   const timerRef = useRef(null)
-  const previews = folder.previews || [folder.color]   // 至少 1 张
-  const rgb = hexToRgb(folder.color)
+  const previews = folder.previews || []     // 3 张渐变/图片作为预览
+  const len = previews.length || 3
 
-  /* 进入 hover → 启动定时器 */
+  // ── hover 启动定时器 ──
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true)
-    // 立即翻到下一张，然后每 2200ms 翻一次（≈0.5s 动画 + 1.7s 停留）
-    setActiveIdx(prev => (prev + 1) % previews.length)
+    setActiveIdx(prev => (prev + 1) % len)
     timerRef.current = setInterval(() => {
-      setActiveIdx(prev => (prev + 1) % previews.length)
-    }, 2200)
-  }, [previews.length])
+      setActiveIdx(prev => (prev + 1) % len)
+    }, 2200)   // 0.5s 翻转 + 1.7s 停留
+  }, [len])
 
-  /* 离开 hover → 清除定时器，停在当前 */
+  // ── 离开清除定时器，停在当前 ──
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false)
     if (timerRef.current) {
@@ -37,48 +30,59 @@ function FolderCard({ folder, isActive, onSelect }) {
     }
   }, [])
 
-  /* 卸载清理 */
   useEffect(() => {
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current)
-    }
+    return () => { if (timerRef.current) clearInterval(timerRef.current) }
   }, [])
 
-  const rotateY = activeIdx * (360 / previews.length)  // 每张间隔 120°
+  const rotateY = activeIdx * (360 / len)   // 每张面间隔角度
+
+  /* 为底下的两层各取一张预览（与正面不同） */
+  const backPreview  = previews[(activeIdx + 1) % len]   // 中层可见的
+  const backPreview2 = previews[(activeIdx + 2) % len]   // 底层可见的
 
   return (
     <button
-      className={`folder-card ${isActive ? 'folder-open' : ''} ${isHovered ? 'folder-hover' : ''}`}
+      className={`folder-card ${isActive ? 'folder-open' : ''}`}
       onClick={() => onSelect(folder.id)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      style={{ '--fc': folder.color, '--fc-rgb': rgb }}
     >
-      {/* 底部两层彩色叠纸（纯装饰） */}
-      <div className="folder-stack folder-stack-2" style={{ backgroundColor: folder.color }} />
-      <div className="folder-stack folder-stack-1" style={{ backgroundColor: folder.color }} />
+      {/* ======== 主体区 ======== */}
+      <div className="folder-body">
+        {/* 大面积彩色圆角底座 */}
+        <div
+          className="folder-color-base"
+          style={{ backgroundColor: folder.color }}
+        />
 
-      {/* body + 文件角 共用容器 */}
-      <div className="folder-body-wrap">
-        {/* 文件夹主体 */}
-        <div className="folder-body" style={{ backgroundColor: folder.color }}>
-          {/* 顶部白色半透明标签条 */}
-          <div className="folder-tab" />
+        {/* 3 层卡片叠放 */}
+        <div className="folder-stack-wrap">
+          {/* 第 3 层 — 最底 */}
+          <div
+            className="folder-layer folder-layer-3"
+            style={{ background: backPreview2 || folder.color }}
+          />
 
-          {/* 预览屏幕 */}
-          <div className="folder-screen-frame">
-            <div className="folder-screen">
+          {/* 第 2 层 — 中间 */}
+          <div
+            className="folder-layer folder-layer-2"
+            style={{ background: backPreview || folder.color }}
+          />
+
+          {/* 第 1 层 — 最上（含 3D 翻转） */}
+          <div className="folder-layer folder-layer-1">
+            <div className="folder-layer-screen">
               <div
-                className="folder-screen-inner"
+                className="folder-layer-flip"
                 style={{ transform: `rotateY(${rotateY}deg)` }}
               >
                 {previews.map((bg, i) => (
                   <div
                     key={i}
-                    className="folder-slide"
+                    className="folder-layer-face"
                     style={{
                       background: bg,
-                      transform: `rotateY(${i * (360 / previews.length)}deg) translateZ(1px)`,
+                      transform: `rotateY(${i * (360 / len)}deg) translateZ(1px)`,
                     }}
                   />
                 ))}
@@ -86,12 +90,9 @@ function FolderCard({ folder, isActive, onSelect }) {
             </div>
           </div>
         </div>
-
-        {/* 蓝色文件角 */}
-        <div className="folder-corner" />
       </div>
 
-      {/* 标题 + 数量 */}
+      {/* ======== 文字 ======== */}
       <div className="folder-meta">
         <span className="folder-label">{folder.label}</span>
         {folder.count && <span className="folder-count">{folder.count}</span>}
@@ -101,7 +102,7 @@ function FolderCard({ folder, isActive, onSelect }) {
 }
 
 /* ============================================================
-   FolderGrid — 3×3 网格容器
+   FolderGrid — 3×3 网格
    ============================================================ */
 export default function FolderGrid({ folders, active, onSelect }) {
   return (
