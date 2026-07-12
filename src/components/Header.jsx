@@ -22,23 +22,24 @@ export default function Header() {
 
   return (
     <header className="relative mt-8 mb-14">
-      {/* ========== 模式切换按钮 + 云朵 + 主题 ========== */}
+      {/* ========== 模式滑块 + 云朵 + 主题 ========== */}
       <div className="relative flex items-center justify-between">
         <div className="mode-switcher">
-          <button
-            className="mode-btn"
-            data-active={!isCreative}
-            onClick={() => switchMode('minimal')}
-          >
-            极简
-          </button>
-          <button
-            className="mode-btn"
-            data-active={isCreative}
-            onClick={() => switchMode('creative')}
-          >
-            创意
-          </button>
+          <div className="mode-segmented">
+            <button
+              className={`mode-seg ${!isCreative ? 'mode-seg-active' : ''}`}
+              onClick={() => switchMode('minimal')}
+            >
+              极简
+            </button>
+            <div className="mode-seg-divider" />
+            <button
+              className={`mode-seg ${isCreative ? 'mode-seg-active' : ''}`}
+              onClick={() => switchMode('creative')}
+            >
+              创意
+            </button>
+          </div>
         </div>
 
         <div className="relative" style={{ marginTop: -16 }}>
