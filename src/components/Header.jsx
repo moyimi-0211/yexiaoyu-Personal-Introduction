@@ -5,11 +5,11 @@ export default function Header() {
       <div
         className="w-[106px] h-[106px] rounded-[12px] flex-shrink-0"
         style={{
-          backgroundColor: 'var(--wash1)',
           border: '4px solid var(--photo-frame)',
           boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 2px 7px rgba(0,0,0,0.06)',
-          backgroundImage: 'linear-gradient(135deg, #f97316 0%, #ec4899 70%, #7c3aed 100%)',
+          backgroundImage: 'url(/avatar.jpg)',
           backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
         role="img"
         aria-label="头像"
