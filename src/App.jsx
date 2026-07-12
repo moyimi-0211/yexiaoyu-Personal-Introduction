@@ -9,14 +9,30 @@ import CommentSection from './components/CommentSection'
 import './index.css'
 
 const folders = [
-  { id: 'books', label: '出版著作', count: '3本', color: '#3B5BFF', thumb: 'linear-gradient(135deg, #1a1a2e 0%, #3B5BFF 100%)' },
-  { id: 'cases', label: '文案案例', count: '12篇', color: '#F97316', thumb: 'linear-gradient(135deg, #1a1a2e 0%, #ED8936 100%)' },
-  { id: 'students', label: '学员成果', count: '500+人', color: '#10B981', thumb: 'linear-gradient(135deg, #064e3b 0%, #10B981 100%)' },
-  { id: 'camp', label: '训练营', count: '8期', color: '#7C3AED', thumb: 'linear-gradient(135deg, #1a1033 0%, #8B5CF6 100%)' },
-  { id: 'media', label: '媒体报道', count: '15篇', color: '#EC4899', thumb: 'linear-gradient(135deg, #31102a 0%, #EC4899 100%)' },
-  { id: 'free', label: '免费干货', count: '20+', color: '#F6C945', thumb: 'linear-gradient(135deg, #332b10 0%, #F59E0B 100%)' },
-  { id: 'reviews', label: '评论区', count: null, color: '#14B8A6', thumb: 'linear-gradient(135deg, #0d3330 0%, #14B8A6 100%)' },
-  { id: 'collab', label: '合作', count: null, color: '#F43F5E', thumb: 'linear-gradient(135deg, #33101a 0%, #F43F5E 100%)' },
+  { id: 'books', label: '出版著作', count: '3本', color: '#4A86FF',
+    previews: ['linear-gradient(135deg, #0a0a1a 0%, #1a2a4a 100%)', 'linear-gradient(135deg, #1a1a2e 0%, #2a3a5a 100%)', 'linear-gradient(135deg, #0d1d3a 0%, #3B5BFF 100%)']
+  },
+  { id: 'cases', label: '文案案例', count: '12篇', color: '#FF8D00',
+    previews: ['linear-gradient(135deg, #1a0a00 0%, #3a1a00 100%)', 'linear-gradient(135deg, #0d0d00 0%, #4a2a00 100%)', 'linear-gradient(135deg, #1a0d00 0%, #F97316 100%)']
+  },
+  { id: 'students', label: '学员成果', count: '500+人', color: '#2ECB81',
+    previews: ['linear-gradient(135deg, #001a0d 0%, #00331a 100%)', 'linear-gradient(135deg, #002a15 0%, #004d2a 100%)', 'linear-gradient(135deg, #00331a 0%, #10B981 100%)']
+  },
+  { id: 'camp', label: '训练营', count: '8期', color: '#A855F7',
+    previews: ['linear-gradient(135deg, #0d0020 0%, #1a0040 100%)', 'linear-gradient(135deg, #150030 0%, #2a0060 100%)', 'linear-gradient(135deg, #1a0033 0%, #8B5CF6 100%)']
+  },
+  { id: 'media', label: '媒体报道', count: '15篇', color: '#F45CAB',
+    previews: ['linear-gradient(135deg, #1a0010 0%, #2a0020 100%)', 'linear-gradient(135deg, #0d0015 0%, #3a0030 100%)', 'linear-gradient(135deg, #200015 0%, #EC4899 100%)']
+  },
+  { id: 'free', label: '免费干货', count: '20+', color: '#FFC107',
+    previews: ['linear-gradient(135deg, #1a1500 0%, #2a2000 100%)', 'linear-gradient(135deg, #0d0d00 0%, #3a2a00 100%)', 'linear-gradient(135deg, #1a1000 0%, #F59E0B 100%)']
+  },
+  { id: 'reviews', label: '评论区', count: null, color: '#2DD4BF',
+    previews: ['linear-gradient(135deg, #001a17 0%, #002a25 100%)', 'linear-gradient(135deg, #002520 0%, #004a40 100%)', 'linear-gradient(135deg, #002a22 0%, #14B8A6 100%)']
+  },
+  { id: 'collab', label: '合作', count: null, color: '#FFA500',
+    previews: ['linear-gradient(135deg, #1a1000 0%, #2a1a00 100%)', 'linear-gradient(135deg, #0d0800 0%, #3a2500 100%)', 'linear-gradient(135deg, #1a0d00 0%, #F43F5E 100%)']
+  },
 ]
 
 const demoBooks = [
