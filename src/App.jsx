@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Header from './components/Header'
-import FolderNav from './components/FolderNav'
+import FolderGrid from './components/FolderGrid'
 import PostList from './components/PostList'
 import PhotoScroller from './components/PhotoScroller'
 import ContactFooter from './components/ContactFooter'
@@ -8,14 +8,14 @@ import CommentSection from './components/CommentSection'
 import './index.css'
 
 const folders = [
-  { id: 'books', label: '出版著作', color: '#3B5BFF' },
-  { id: 'cases', label: '文案案例', color: '#F97316' },
-  { id: 'students', label: '学员成果', color: '#10B981' },
-  { id: 'camp', label: '训练营', color: '#7C3AED' },
-  { id: 'media', label: '媒体报道', color: '#EC4899' },
-  { id: 'free', label: '免费干货', color: '#F6C945' },
-  { id: 'reviews', label: '评论区', color: '#14B8A6' },
-  { id: 'collab', label: '合作', color: '#F43F5E' },
+  { id: 'books', label: '出版著作', count: '3本', color: '#3B5BFF', image: null },
+  { id: 'cases', label: '文案案例', count: '12篇', color: '#F97316', image: null },
+  { id: 'students', label: '学员成果', count: '500+人', color: '#10B981', image: null },
+  { id: 'camp', label: '训练营', count: '8期', color: '#7C3AED', image: null },
+  { id: 'media', label: '媒体报道', count: '15篇', color: '#EC4899', image: null },
+  { id: 'free', label: '免费干货', count: '20+', color: '#F6C945', image: null },
+  { id: 'reviews', label: '评论区', count: null, color: '#14B8A6', image: null },
+  { id: 'collab', label: '合作', count: null, color: '#F43F5E', image: null },
 ]
 
 const demoBooks = [
@@ -78,7 +78,7 @@ export default function App() {
 
         <Header />
 
-        <FolderNav
+        <FolderGrid
           folders={folders}
           active={activeFolder}
           onSelect={setActiveFolder}

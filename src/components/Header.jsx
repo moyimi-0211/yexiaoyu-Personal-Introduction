@@ -156,54 +156,57 @@ export default function Header() {
             </div>
           </div>
         )}
-
         {/* ========== 创意模式 ========== */}
         {isCreative && (
-          <div className="flex flex-col items-center text-center relative">
-            <svg className="mode-fish-deco" style={{ top: -20, right: 0, width: 120, opacity: 0.08 }} viewBox="0 0 100 60" aria-hidden="true">
-              <path d="M10 30 Q25 5 50 30 Q75 55 90 30" fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round"/>
-              <circle cx="50" cy="18" r="4" fill="var(--accent)" opacity="0.6"/>
-            </svg>
+          <div className="relative">
+            {/* 头部：名字 + 标签 + 简介 */}
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-2">
+                <h1
+                  className="font-bold m-0 leading-none"
+                  style={{
+                    fontFamily: "'DeYiHei', 'Smiley Sans', '得意黑', 'Noto Sans SC', sans-serif",
+                    fontSize: 48,
+                    color: 'var(--grey1)',
+                    letterSpacing: '0.02em',
+                  }}
+                >
+                  叶小鱼
+                </h1>
+                <span
+                  className="inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px]"
+                  style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
+                  title="已验证"
+                >✓</span>
+              </div>
 
-            <div
-              className="rounded-[16px] flex-shrink-0 mb-6"
-              style={{
-                width: 140,
-                height: 140,
-                border: '5px solid var(--photo-frame)',
-                boxShadow: '0 0 0 1px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.1)',
-                backgroundImage: 'url(/avatar.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-              role="img"
-              aria-label="头像"
-            />
+              <p className="text-[18px] mb-4" style={{ color: 'var(--grey2)' }}>
+                畅销书作者 & 双一流大学教材导师
+              </p>
 
-            <div className="flex items-center gap-3 mb-3">
-              <h1
-                className="creative-name font-bold m-0 leading-none"
-                style={{ fontFamily: "'Noto Sans SC', '思源黑体', sans-serif", fontSize: 48 }}
-              >
-                叶小鱼
-              </h1>
-              <span
-                className="inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px]"
-                style={{ backgroundColor: 'var(--accent)', color: '#fff' }}
-                title="已验证"
-              >✓</span>
+              <div className="text-[16px] leading-relaxed mb-6" style={{ color: 'var(--grey2)' }}>
+                <p className="mb-1">一直致力于研究文案方法论：</p>
+                <p className="mb-0.5" style={{ color: 'var(--grey3)' }}>一篇卖货文案带来30万销售额</p>
+                <p className="mb-0.5" style={{ color: 'var(--grey3)' }}>为服装公司带来80%加盟客户</p>
+                <p className="mb-0.5" style={{ color: 'var(--grey3)' }}>一篇软文让100+自媒体主动转载</p>
+                <p className="mt-2">关注如何更好地教文案，通过训练营帮众多文案小白成功转型并实现文案变现。</p>
+              </div>
             </div>
 
-            <p className="text-[18px] mb-6" style={{ color: 'var(--grey2)' }}>
-              畅销书作者 & 双一流大学教材导师
-            </p>
-
-            <div style={{ maxWidth: 520, color: 'var(--grey2)', fontSize: 16, lineHeight: '2' }}>
-              <p className="mb-3">一直致力于研究文案方法论。</p>
-              <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>一篇卖货文案带来30万销售额</p>
-              <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>为服装公司带来80%加盟客户</p>
-              <p className="mb-1" style={{ color: 'var(--grey3)', fontSize: 15 }}>一篇软文让100+自媒体主动转载</p>
-              <p className="mt-6">关注如何更好地教文案，通过训练营帮众多文案小白成功转型并实现文案变现。</p>
+            {/* 平台图标勋章 */}
+            <div className="platform-badges">
+              <a href="https://weixin.qq.com" target="_blank" rel="noopener noreferrer" className="platform-badge" title="微信">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M8.5 11a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm5 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="#07C160"/><path d="M2 8.5C2 5.5 5.5 3 9.5 3c3.5 0 6.5 2 7.5 4.5-3.5.5-6 3-6 6.5 0 1 .5 2 1 2.5-.5 0-1-.5-1.5-.5C8 16 6 17.5 4 17c0 0 1-1.5 1-2.5-2-.5-3-3-3-6z" fill="#07C160"/><circle cx="14.5" cy="14.5" r="5.5" fill="#07C160"/><path d="M12.5 14.5l2 1.5-1-2 2-1.5h-2.5l-1-2-.5 2h-2.5l2 1.5-1 2 2-1.5z" fill="#fff" opacity="0.9"/></svg>
+              </a>
+              <a href="https://www.xiaohongshu.com" target="_blank" rel="noopener noreferrer" className="platform-badge" title="小红书">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="2" width="16" height="20" rx="4" fill="#FE2C55"/><path d="M9 7h6M9 10h4M9 13h5M9 16h3" stroke="#fff" strokeWidth="1.2" strokeLinecap="round"/></svg>
+              </a>
+              <a href="https://mp.weixin.qq.com" target="_blank" rel="noopener noreferrer" className="platform-badge" title="公众号">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" fill="#1677FF"/><path d="M7 8h10M7 11h8M7 14h6M7 17h4" stroke="#fff" strokeWidth="1.2" strokeLinecap="round"/></svg>
+              </a>
+              <a href="https://www.douyin.com" target="_blank" rel="noopener noreferrer" className="platform-badge" title="抖音">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="4" fill="#111"/><path d="M15.5 4.5C15.5 6 16.5 7.5 18 8v2.5c-1 0-2-.5-2.5-1v5c0 3-2.5 5-5.5 4.5S5 16 5 13.5s2.5-5 5-5c.5 0 1 .2 1.5.5v2.8c-.5-.3-1-.5-1.5-.5-1.5 0-2.5 1-2.5 2.5S8.5 16.5 10 16s2-2 2-3.5V4.5h3.5z" fill="#fff"/></svg>
+              </a>
             </div>
           </div>
         )}
