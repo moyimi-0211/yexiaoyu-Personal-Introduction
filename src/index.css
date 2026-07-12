@@ -328,26 +328,51 @@ body {
   padding: 0;
   text-align: left;
   width: 100%;
+  position: relative;
 }
 
 .folder-card:hover {
   transform: translateY(-4px);
 }
 
-/* 主体 —— 层叠纸张通过 box-shadow 实现 */
+/* ===== 底部装饰层叠纸（绝对定位，偏移露出） ===== */
+.folder-stack {
+  position: absolute;
+  border-radius: 12px;
+  pointer-events: none;
+  opacity: 0.22;
+}
+.folder-stack-1 {
+  top: 6px;
+  left: 6px;
+  right: -6px;
+  bottom: -6px;
+  z-index: 0;
+}
+.folder-stack-2 {
+  top: 12px;
+  left: 12px;
+  right: -12px;
+  bottom: -12px;
+  z-index: -1;
+  opacity: 0.12;
+}
+
+/* ===== 主体 ===== */
+.folder-body-wrap {
+  position: relative;
+}
+
 .folder-body {
   position: relative;
+  z-index: 1;
   border-radius: 12px;
   overflow: hidden;
   padding: 0;
-  box-shadow:
-    6px 6px 0 rgba(var(--fc-rgb), 0.28),
-    12px 12px 0 rgba(var(--fc-rgb), 0.12),
-    0 2px 8px rgba(0,0,0,0.06),
-    0 6px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 6px 20px rgba(0,0,0,0.05);
 }
 
-/* 顶部白色标签 */
+/* 顶部白色半透明标签条 */
 .folder-tab {
   height: 6px;
   background: rgba(255,255,255,0.25);
@@ -355,13 +380,14 @@ body {
   border-radius: 0 0 4px 4px;
 }
 
-/* 屏幕外框 */
+/* 屏幕外框 — 提供 perspective */
 .folder-screen-frame {
   padding: 10px;
   background: none;
   perspective: 900px;
 }
 
+/* 屏幕容器 */
 .folder-screen {
   position: relative;
   width: 100%;
@@ -373,42 +399,41 @@ body {
   transform-style: preserve-3d;
 }
 
-/* 3D 翻转内层 */
+/* 3D 翻转内层 — 用 transition 替代 animation，JS 控制旋转角度 */
 .folder-screen-inner {
   width: 100%;
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
-  animation: folderFlip3D 6s infinite cubic-bezier(0.45, 0, 0.55, 1);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 每张预览 = 一个 3D 面 */
+/* 每张预览 = 一个 3D 面，带白色照片边框 */
 .folder-slide {
   position: absolute;
-  inset: 0;
+  inset: 3px;
   backface-visibility: hidden;
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.55);
 }
 
-.folder-slide:nth-child(1) { transform: rotateY(0deg) translateZ(1px); }
-.folder-slide:nth-child(2) { transform: rotateY(120deg) translateZ(1px); }
-.folder-slide:nth-child(3) { transform: rotateY(240deg) translateZ(1px); }
-
-/* 3 张面轮转：0°→120°→240°→360°(=0°) */
-@keyframes folderFlip3D {
-  0%, 28%     { transform: rotateY(0deg); }
-  33%, 61%    { transform: rotateY(120deg); }
-  66%, 94%    { transform: rotateY(240deg); }
-  100%        { transform: rotateY(360deg); }
+/* 蓝色文件角 — 暗示"底下还有文件" */
+.folder-corner {
+  position: absolute;
+  bottom: 2px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  background: #3B82F6;
+  border-radius: 0 4px 4px 0;
+  transform: rotate(-10deg);
+  opacity: 0.75;
+  pointer-events: none;
+  z-index: 3;
 }
 
-/* 悬停暂停 */
-.folder-screen:hover .folder-screen-inner {
-  animation-play-state: paused;
-}
-
-/* 标题 + 数量 */
+/* ===== 标题 + 数量 ===== */
 .folder-meta {
   display: flex;
   justify-content: space-between;
