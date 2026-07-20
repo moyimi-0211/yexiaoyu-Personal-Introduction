@@ -4,6 +4,7 @@ import FolderNav from './components/FolderNav'
 import FolderGrid from './components/FolderGrid'
 import PostList from './components/PostList'
 import PhotoScroller from './components/PhotoScroller'
+import CourseShowcase from './components/CourseShowcase'
 import ContactFooter from './components/ContactFooter'
 import CommentSection from './components/CommentSection'
 import './index.css'
@@ -18,7 +19,7 @@ const folders = [
   { id: 'students', label: '学员成果', count: '500+人', color: '#2ECB81',
     previews: ['linear-gradient(135deg, #001a0d 0%, #00331a 100%)', 'linear-gradient(135deg, #002a15 0%, #004d2a 100%)', 'linear-gradient(135deg, #00331a 0%, #10B981 100%)']
   },
-  { id: 'camp', label: '训练营', count: '8期', color: '#A855F7',
+  { id: 'camp', label: '课程产品', count: '4项', color: '#9E91C8',
     previews: ['linear-gradient(135deg, #0d0020 0%, #1a0040 100%)', 'linear-gradient(135deg, #150030 0%, #2a0060 100%)', 'linear-gradient(135deg, #1a0033 0%, #8B5CF6 100%)']
   },
   { id: 'media', label: '媒体报道', count: '15篇', color: '#F45CAB',
@@ -54,17 +55,6 @@ const demoStudents = [
   { title: '小雅 · 从行政到月入过万', desc: '0 基础入门，3 个月后首单 5000 元，现稳定月入 1.5 万+', source: '第七期', color: '#10B981', image: null },
   { title: '大刘 · 副业转正', desc: '白天上班晚上学文案，半年后辞职全职做文案，收入翻三倍', source: '第五期', color: '#34D399', image: null },
   { title: '阿琳 · 宝妈逆袭', desc: '带娃间隙学文案，第一篇作品就被甲方看中，现已签约稳定供稿', source: '第三期', color: '#6EE7B7', image: null },
-]
-
-const demoCamp = [
-  { title: '7 天入门营', color: '#7C3AED', link: '#' },
-  { title: '21 天进阶实战', color: '#8B5CF6', link: '#' },
-  { title: '60 天变现陪跑', color: '#6366F1', link: '#' },
-  { title: '1v1 私教辅导', color: '#A78BFA', link: '#' },
-  { title: '企业内训定制', color: '#C4B5FD', link: '#' },
-  { title: '线上直播课', color: '#DDD6FE', link: '#' },
-  { title: '线下工作坊', color: '#818CF8', link: '#' },
-  { title: '年度会员社群', color: '#4F46E5', link: '#' },
 ]
 
 const demoMedia = [
@@ -134,7 +124,7 @@ export default function App() {
             <PostList title="学员成果" items={demoStudents} />
           )}
           {activeFolder === 'camp' && (
-            <PhotoScroller title="文案训练营" items={demoCamp} />
+            <CourseShowcase />
           )}
           {activeFolder === 'media' && (
             <PhotoScroller title="媒体报道" items={demoMedia} />

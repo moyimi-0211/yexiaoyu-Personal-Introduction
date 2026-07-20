@@ -455,6 +455,169 @@ body {
 }
 
 /* ============================================
+   课程产品 — 暗色画廊 + 莫奈色系
+   ============================================ */
+.course-showcase {
+  animation: fvIn 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.course-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.course-kicker,
+.course-card-meta,
+.course-dialog-copy > p {
+  margin: 0 0 7px;
+  color: var(--grey3);
+  font: 700 10px/1.2 'JetBrains Mono', monospace;
+  letter-spacing: 0.1em;
+}
+
+.course-heading h2 {
+  margin: 0;
+  color: var(--grey1);
+  font: 700 clamp(28px, 7vw, 42px)/0.98 'Smiley Sans', 'LXGW WenKai', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.course-heading > p {
+  max-width: 168px;
+  margin: 0 0 2px;
+  color: var(--grey2);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.course-filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 0 16px;
+  scrollbar-width: none;
+}
+
+.course-filters::-webkit-scrollbar { display: none; }
+
+.course-filters button {
+  flex: 0 0 auto;
+  border: 1px solid var(--transparent-border);
+  border-radius: 999px;
+  padding: 7px 12px;
+  background: var(--wash2);
+  color: var(--grey3);
+  font: 12px 'JetBrains Mono', 'LXGW WenKai', sans-serif;
+  cursor: pointer;
+  transition: color .2s ease, background .2s ease, transform .2s ease;
+}
+
+.course-filters button:hover { color: var(--grey1); transform: translateY(-1px); }
+.course-filters button.is-active { background: var(--grey1); color: var(--body-bg); }
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.course-card {
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--transparent-border);
+  border-radius: 15px;
+  background: var(--wash2);
+  color: var(--grey1);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .12);
+}
+
+.course-card-moss { background: linear-gradient(145deg, #1b312c, #11201d); }
+.course-card-sun { background: linear-gradient(145deg, #514a2e, #242219); }
+.course-card-night { background: linear-gradient(145deg, #27242a, #151516); }
+.course-card-lilac { background: linear-gradient(145deg, #343146, #20202a); }
+
+.course-image-wrap {
+  display: block;
+  aspect-ratio: 1.15 / 1;
+  overflow: hidden;
+  background: var(--wash1);
+}
+
+.course-card-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.course-image-top { object-position: top; }
+
+.course-card-copy {
+  position: relative;
+  display: block;
+  min-height: 82px;
+  padding: 13px 38px 14px 14px;
+}
+
+.course-card-copy > span { display: block; }
+.course-card-title { font: 700 16px/1.28 'Smiley Sans', 'LXGW WenKai', sans-serif; }
+.course-card-arrow { position: absolute; right: 14px; bottom: 17px; color: var(--grey2); font-size: 19px; }
+
+.course-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(8, 8, 12, .76);
+  backdrop-filter: blur(12px);
+  animation: courseFade .2s ease-out;
+}
+
+.course-dialog {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(240px, 1fr);
+  width: min(760px, 100%);
+  max-height: min(720px, calc(100vh - 40px));
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  background: #18181e;
+  box-shadow: 0 24px 80px rgba(0,0,0,.42);
+  animation: courseDialogIn .28s cubic-bezier(.22, 1, .36, 1);
+}
+
+.course-dialog-image-wrap { min-height: 0; background: #0e0e12; }
+.course-dialog-image-wrap img { width: 100%; height: 100%; max-height: 680px; object-fit: contain; display: block; }
+.course-dialog-copy { align-self: center; padding: clamp(28px, 6vw, 52px); }
+.course-dialog-copy h3 { margin: 0 0 12px; color: #f1f1f2; font: 700 clamp(25px, 4vw, 38px)/1.04 'Smiley Sans', 'LXGW WenKai', sans-serif; }
+.course-dialog-copy > span { color: #a6a0c3; font: 12px 'JetBrains Mono', monospace; }
+.course-dialog-copy > div { margin-top: 28px; color: #c1c1c7; font-size: 15px; line-height: 1.9; }
+.course-dialog-close { position: absolute; z-index: 1; top: 11px; right: 12px; width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.16); border-radius: 50%; background: rgba(14,14,18,.7); color: #fff; font-size: 24px; line-height: 1; cursor: pointer; }
+
+@keyframes courseFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes courseDialogIn { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 520px) {
+  .course-heading { align-items: start; flex-direction: column; gap: 10px; }
+  .course-heading > p { max-width: none; }
+  .course-grid { gap: 10px; }
+  .course-card-copy { min-height: 74px; padding: 11px 32px 12px 11px; }
+  .course-card-title { font-size: 14px; }
+  .course-card-arrow { right: 11px; bottom: 14px; }
+  .course-dialog { grid-template-columns: 1fr; max-width: 440px; overflow-y: auto; }
+  .course-dialog-image-wrap { max-height: 49vh; }
+  .course-dialog-copy { padding: 26px 24px 30px; }
+}
+
+/* ============================================
    平台图标勋章
    ============================================ */
 .platform-badges {
