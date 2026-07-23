@@ -119,7 +119,7 @@ export default function Header() {
             />
 
             <div className="header-copy flex-1 pt-1">
-              <p className="header-kicker">COPYWRITING · TEACHING · PRACTICE</p>
+              <p className="creative-eyebrow">畅销书作者 · 文案方法论导师<br />2026 · 正在持续创作</p>
               <div className="flex items-center gap-2 mb-1">
                 <h1
                   className="text-[24px] font-bold m-0 leading-tight"
@@ -160,7 +160,6 @@ export default function Header() {
                   className="creative-title"
                   style={{
                     fontFamily: "'DeYiHei', 'Smiley Sans', '得意黑', 'Noto Sans SC', sans-serif",
-                    color: 'var(--grey1)',
                   }}
                 >
                   叶小鱼
@@ -172,23 +171,14 @@ export default function Header() {
                 >✓</span>
               </div>
 
-              <p className="creative-role" style={{ color: 'var(--grey2)' }}>
-                畅销书作者 & 双一流大学教材导师
-              </p>
-
               <div className="creative-manifesto" style={{ color: 'var(--grey2)' }}>
-                <p>把文案方法论<br />讲清楚，也陪你把它做出来。</p>
-                <div className="header-proof creative-proof">
-                  <span>单篇文案 · 30 万销售额</span>
-                  <span>品牌转化 · 80% 加盟增长</span>
-                  <span>内容传播 · 100+ 自媒体转载</span>
-                </div>
-                <small>通过训练营，帮文案小白完成转型并实现变现。</small>
+                <p>我写文案，也让文案变现。</p>
+                <small>从畅销书、双一流教材到实战训练营，持续把有效的方法交给更多写作者。</small>
               </div>
             </div>
 
             <div className="creative-platforms">
-              <span>FIND ME ON</span>
+              <span>FOLLOW</span>
               <div className="platform-badges">
               <a href="https://weixin.qq.com" target="_blank" rel="noopener noreferrer" className="platform-badge" title="微信">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M8.5 11a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm5 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="#07C160"/><path d="M2 8.5C2 5.5 5.5 3 9.5 3c3.5 0 6.5 2 7.5 4.5-3.5.5-6 3-6 6.5 0 1 .5 2 1 2.5-.5 0-1-.5-1.5-.5C8 16 6 17.5 4 17c0 0 1-1.5 1-2.5-2-.5-3-3-3-6z" fill="#07C160"/><circle cx="14.5" cy="14.5" r="5.5" fill="#07C160"/><path d="M12.5 14.5l2 1.5-1-2 2-1.5h-2.5l-1-2-.5 2h-2.5l2 1.5-1 2 2-1.5z" fill="#fff" opacity="0.9"/></svg>

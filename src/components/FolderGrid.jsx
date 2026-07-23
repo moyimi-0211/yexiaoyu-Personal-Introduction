@@ -92,10 +92,11 @@ function FolderCard({ folder, isActive, onSelect }) {
         </div>
       </div>
 
-      {/* ======== 文字 ======== */}
-      <div className="folder-meta">
-        <span className="folder-label">{folder.label}</span>
-        {folder.count && <span className="folder-count">{folder.count}</span>}
+      <div className="folder-info">
+        <span className="folder-info-dot" style={{ backgroundColor: folder.color }} />
+        <h2>{folder.label}</h2>
+        <p>{folder.description}</p>
+        {folder.count && <small>{folder.count} 内容</small>}
       </div>
     </button>
   )
