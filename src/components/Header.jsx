@@ -152,18 +152,15 @@ export default function Header() {
         )}
         {/* ========== 创意模式 ========== */}
         {isCreative && (
-          <div className="relative">
-            {/* 头部：名字 + 标签 + 简介 */}
-            <div className="mb-8 header-creative-copy">
+          <div className="creative-hero">
+            <div className="creative-identity">
               <p className="header-kicker">COPYWRITING · TEACHING · PRACTICE</p>
-              <div className="flex items-center gap-3 mb-2">
+              <div className="creative-name-row">
                 <h1
-                  className="font-bold m-0 leading-none"
+                  className="creative-title"
                   style={{
                     fontFamily: "'DeYiHei', 'Smiley Sans', '得意黑', 'Noto Sans SC', sans-serif",
-                    fontSize: 48,
                     color: 'var(--grey1)',
-                    letterSpacing: '0.02em',
                   }}
                 >
                   叶小鱼
@@ -175,23 +172,24 @@ export default function Header() {
                 >✓</span>
               </div>
 
-              <p className="text-[18px] mb-4" style={{ color: 'var(--grey2)' }}>
+              <p className="creative-role" style={{ color: 'var(--grey2)' }}>
                 畅销书作者 & 双一流大学教材导师
               </p>
 
-              <div className="text-[16px] leading-relaxed mb-6" style={{ color: 'var(--grey2)' }}>
-                <p className="mb-2">把文案方法论讲清楚，也陪你把它做出来。</p>
-                <div className="header-proof">
+              <div className="creative-manifesto" style={{ color: 'var(--grey2)' }}>
+                <p>把文案方法论<br />讲清楚，也陪你把它做出来。</p>
+                <div className="header-proof creative-proof">
                   <span>单篇文案 · 30 万销售额</span>
                   <span>品牌转化 · 80% 加盟增长</span>
                   <span>内容传播 · 100+ 自媒体转载</span>
                 </div>
-                <p className="mt-3">通过训练营，帮文案小白完成转型并实现变现。</p>
+                <small>通过训练营，帮文案小白完成转型并实现变现。</small>
               </div>
             </div>
 
-            {/* 平台图标勋章 */}
-            <div className="platform-badges">
+            <div className="creative-platforms">
+              <span>FIND ME ON</span>
+              <div className="platform-badges">
               <a href="https://weixin.qq.com" target="_blank" rel="noopener noreferrer" className="platform-badge" title="微信">
                 <svg viewBox="0 0 24 24" fill="none"><path d="M8.5 11a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm5 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" fill="#07C160"/><path d="M2 8.5C2 5.5 5.5 3 9.5 3c3.5 0 6.5 2 7.5 4.5-3.5.5-6 3-6 6.5 0 1 .5 2 1 2.5-.5 0-1-.5-1.5-.5C8 16 6 17.5 4 17c0 0 1-1.5 1-2.5-2-.5-3-3-3-6z" fill="#07C160"/><circle cx="14.5" cy="14.5" r="5.5" fill="#07C160"/><path d="M12.5 14.5l2 1.5-1-2 2-1.5h-2.5l-1-2-.5 2h-2.5l2 1.5-1 2 2-1.5z" fill="#fff" opacity="0.9"/></svg>
               </a>
@@ -204,6 +202,7 @@ export default function Header() {
               <a href="https://www.douyin.com" target="_blank" rel="noopener noreferrer" className="platform-badge" title="抖音">
                 <svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="4" fill="#111"/><path d="M15.5 4.5C15.5 6 16.5 7.5 18 8v2.5c-1 0-2-.5-2.5-1v5c0 3-2.5 5-5.5 4.5S5 16 5 13.5s2.5-5 5-5c.5 0 1 .2 1.5.5v2.8c-.5-.3-1-.5-1.5-.5-1.5 0-2.5 1-2.5 2.5S8.5 16.5 10 16s2-2 2-3.5V4.5h3.5z" fill="#fff"/></svg>
               </a>
+              </div>
             </div>
           </div>
         )}

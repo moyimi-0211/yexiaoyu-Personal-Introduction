@@ -712,6 +712,89 @@ body {
   margin-bottom: 12px;
 }
 
+/* 创意模式刻意采用独立的版式骨架：无头像、大字宣言、入口成为结尾。 */
+.creative-hero {
+  padding: clamp(20px, 5vw, 42px) 0 10px;
+}
+
+.creative-identity {
+  max-width: 610px;
+}
+
+.creative-name-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.creative-title {
+  margin: 0;
+  font-size: clamp(64px, 13vw, 112px);
+  font-weight: 700;
+  line-height: .78;
+  letter-spacing: -.07em;
+}
+
+.creative-name-row > span {
+  margin-top: 5px;
+}
+
+.creative-role {
+  margin: 22px 0 0;
+  font-size: clamp(15px, 2.5vw, 19px);
+  letter-spacing: .015em;
+}
+
+.creative-manifesto {
+  margin-top: 38px;
+}
+
+.creative-manifesto > p {
+  margin: 0;
+  font-family: 'Smiley Sans', 'LXGW WenKai', sans-serif;
+  font-size: clamp(28px, 5.8vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+
+.creative-proof {
+  margin-top: 26px;
+}
+
+.creative-manifesto small {
+  display: block;
+  max-width: 390px;
+  margin-top: 16px;
+  color: var(--grey3);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.creative-platforms {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 42px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-rule);
+}
+
+.creative-platforms > span {
+  color: var(--grey3);
+  font: 700 10px/1 'JetBrains Mono', monospace;
+  letter-spacing: .1em;
+}
+
+.creative-platforms .platform-badges {
+  gap: 8px;
+}
+
+.creative-platforms .platform-badge {
+  width: 38px;
+  height: 38px;
+  padding: 8px;
+}
+
 .content-section {
   margin-top: var(--section-gap) !important;
 }
@@ -786,6 +869,10 @@ body {
   .folder-nav { grid-template-columns: repeat(2, 1fr) !important; }
   .folder-nav .folder-btn { min-height: 48px; }
   .post-row:hover { padding-inline: 0; background: transparent; }
+  .creative-hero { padding-top: 18px; }
+  .creative-title { font-size: clamp(58px, 18vw, 82px); }
+  .creative-manifesto { margin-top: 30px; }
+  .creative-manifesto > p { font-size: clamp(29px, 9vw, 44px); }
 }
 
 @media (max-width: 430px) {
@@ -794,4 +881,5 @@ body {
   .folder-grid { gap: 10px; }
   .folder-label { font-size: 12px; }
   .folder-count { display: none; }
+  .creative-platforms { align-items: flex-start; flex-direction: column; gap: 12px; }
 }
