@@ -17,9 +17,9 @@ export default function PostList({ title, items }) {
   }, [])
 
   return (
-    <section className="mt-16" style={{ animation: 'fvIn 0.32s cubic-bezier(0.22, 1, 0.36, 1)' }}>
+    <section className="content-section mt-16" style={{ animation: 'fvIn 0.32s cubic-bezier(0.22, 1, 0.36, 1)' }}>
       <h2
-        className="text-[13px] font-bold uppercase tracking-wider mb-6"
+        className="section-label text-[13px] font-bold uppercase tracking-wider mb-6"
         style={{ color: 'var(--grey3)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.08em' }}
       >
         {title}
@@ -29,7 +29,7 @@ export default function PostList({ title, items }) {
         {items.map((item, i) => (
           <div
             key={i}
-            className="relative flex items-center gap-4 py-4 cursor-pointer group"
+            className="post-row relative flex items-center gap-4 py-4 cursor-pointer group"
             style={{ borderBottom: `1px solid var(--border-rule)` }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
@@ -45,7 +45,7 @@ export default function PostList({ title, items }) {
             {/* Content */}
             <div className="flex-1 min-w-0">
               <div
-                className="text-[14px] font-medium truncate group-hover:underline"
+                className="post-title text-[14px] font-medium truncate"
                 style={{ color: 'var(--grey1)', fontFamily: "'Smiley Sans', '得意黑', sans-serif" }}
               >
                 {item.title}

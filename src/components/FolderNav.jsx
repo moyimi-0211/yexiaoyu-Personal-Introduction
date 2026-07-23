@@ -1,7 +1,7 @@
 export default function FolderNav({ folders, active, onSelect }) {
   return (
     <nav
-      className="grid gap-[30px_20px] mt-20 pt-2.5"
+      className="folder-nav grid gap-[30px_20px] mt-20 pt-2.5"
       style={{
         gridTemplateColumns: 'repeat(3, 1fr)',
       }}

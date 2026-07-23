@@ -104,7 +104,7 @@ export default function Header() {
       >
         {/* ========== 极简模式 ========== */}
         {!isCreative && (
-          <div className="flex items-start gap-5">
+          <div className="header-minimal flex items-start gap-5">
             <div
               className="w-[106px] h-[106px] rounded-[12px] flex-shrink-0"
               style={{
@@ -118,7 +118,8 @@ export default function Header() {
               aria-label="头像"
             />
 
-            <div className="flex-1 pt-1">
+            <div className="header-copy flex-1 pt-1">
+              <p className="header-kicker">COPYWRITING · TEACHING · PRACTICE</p>
               <div className="flex items-center gap-2 mb-1">
                 <h1
                   className="text-[24px] font-bold m-0 leading-tight"
@@ -135,23 +136,16 @@ export default function Header() {
               <p className="text-[14px] m-0" style={{ color: 'var(--grey2)' }}>
                 畅销书作者 & 双一流大学教材导师
               </p>
-              <p className="text-[14px] mt-4 mb-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
-                一直致力于研究文案方法论：
+              <p className="header-statement text-[14px] mt-4 mb-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
+                把文案方法论讲清楚，也陪你把它做出来。
               </p>
-              <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-                通过一篇卖货文案带来30万销售额；
-              </p>
-              <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-                通过文案给一服装公司带来80%加盟客户；
-              </p>
-              <p className="text-[14px] my-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-                通过一篇软文，让100+自媒体主动转载；
-              </p>
-              <p className="text-[14px] mt-2 leading-relaxed" style={{ color: 'var(--grey2)' }}>
-                关注如何更好地教文案：
-              </p>
-              <p className="text-[14px] mt-1 leading-relaxed" style={{ color: 'var(--grey3)' }}>
-                通过文案训练营，帮众多文案小白成功转型并实现文案变现。
+              <div className="header-proof">
+                <span>单篇文案 · 30 万销售额</span>
+                <span>品牌转化 · 80% 加盟增长</span>
+                <span>内容传播 · 100+ 自媒体转载</span>
+              </div>
+              <p className="header-note text-[14px] mt-3 leading-relaxed" style={{ color: 'var(--grey3)' }}>
+                通过训练营，帮文案小白完成转型并实现变现。
               </p>
             </div>
           </div>
@@ -160,7 +154,8 @@ export default function Header() {
         {isCreative && (
           <div className="relative">
             {/* 头部：名字 + 标签 + 简介 */}
-            <div className="mb-8">
+            <div className="mb-8 header-creative-copy">
+              <p className="header-kicker">COPYWRITING · TEACHING · PRACTICE</p>
               <div className="flex items-center gap-3 mb-2">
                 <h1
                   className="font-bold m-0 leading-none"
@@ -185,11 +180,13 @@ export default function Header() {
               </p>
 
               <div className="text-[16px] leading-relaxed mb-6" style={{ color: 'var(--grey2)' }}>
-                <p className="mb-1">一直致力于研究文案方法论：</p>
-                <p className="mb-0.5" style={{ color: 'var(--grey3)' }}>一篇卖货文案带来30万销售额</p>
-                <p className="mb-0.5" style={{ color: 'var(--grey3)' }}>为服装公司带来80%加盟客户</p>
-                <p className="mb-0.5" style={{ color: 'var(--grey3)' }}>一篇软文让100+自媒体主动转载</p>
-                <p className="mt-2">关注如何更好地教文案，通过训练营帮众多文案小白成功转型并实现文案变现。</p>
+                <p className="mb-2">把文案方法论讲清楚，也陪你把它做出来。</p>
+                <div className="header-proof">
+                  <span>单篇文案 · 30 万销售额</span>
+                  <span>品牌转化 · 80% 加盟增长</span>
+                  <span>内容传播 · 100+ 自媒体转载</span>
+                </div>
+                <p className="mt-3">通过训练营，帮文案小白完成转型并实现变现。</p>
               </div>
             </div>
 

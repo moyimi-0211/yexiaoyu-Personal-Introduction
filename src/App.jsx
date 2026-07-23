@@ -95,7 +95,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--body-bg)', color: 'var(--body-color)' }}>
-      <main className="mx-auto max-w-[640px] px-5 pb-24">
+      <main className="site-shell mx-auto max-w-[680px] px-5 pb-24 sm:px-6">
 
         <Header />
 
